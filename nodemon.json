@@ -1,5 +1,5 @@
 {
-  "watch": ["server-dev"],
+  "watch": ["server"],
   "exec": "ts-node --project tsconfig.server.json server/webgl-v-admin.ts",
-  "ext": "js ts"
+  "ext": "js, ts, json"
 }
