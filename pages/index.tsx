@@ -1,42 +1,37 @@
 import React, { useState } from 'react';
 import { withApollo } from '../graphql/libs/apollo';
-import { useQuery } from '@apollo/react-hooks';
-import { HELLO } from '../graphql/gql/allCharacters';
 import { ProtectRoute } from '../auth';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Layout from '../components/Layout';
+import CreateProject from '../components/CreateProject';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     margin: '0 auto',
-    width: 500,
+  },
+  tabsPaper: {
+    marginBottom: theme.spacing(3),
   },
 }));
+
 const IndexPage: () => JSX.Element = () => {
   const [value, setValue] = useState(0);
-  const { loading, error, data } = useQuery(HELLO);
   const classes = useStyles();
-
-  if (error) return <h1>Error</h1>;
-  if (loading) return <h1>Loading...</h1>;
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
 
-  console.log(data);
-  console.log(value);
-
   return (
-    <>
-      <h1>Welcome to WebGL konfigurator admin</h1>
-
+    <Layout>
       <div className={classes.root}>
-        <Paper square>
+        <Paper square className={classes.tabsPaper}>
           <Tabs
+            centered
             value={value}
             indicatorColor="primary"
             textColor="primary"
@@ -47,9 +42,9 @@ const IndexPage: () => JSX.Element = () => {
             <Tab label="List of projects" />
           </Tabs>
         </Paper>
-        <p>{data.hello}</p>
+        {value === 0 ? <CreateProject /> : null}
       </div>
-    </>
+    </Layout>
   );
 };
 

@@ -5,7 +5,7 @@ import { errorName } from './constants';
 
 const resolvers = {
   Query: {
-    auth: async (root, args, ctx) => {
+    auth: async (root: any, args: any, ctx: any) => {
       const { token } = ctx;
 
       if (token) {
@@ -43,10 +43,14 @@ const resolvers = {
 
       return data;
     },
-    loginUser: async ({ input }) => {
+    loginUser: async (root, args, ctx) => {
       try {
+        console.log(args);
+        const { input } = args;
         const { email, password: userPswd } = input;
         const userExist: IUser = await User.findOne({ email });
+
+        console.log(userExist);
 
         if (!userExist) {
           throw new Error(errorName.NOT_FOUND);
@@ -55,7 +59,10 @@ const resolvers = {
         const { password } = userExist;
         const pwdMatch: boolean = await bcrypt.compare(userPswd, password);
 
+        console.log(pwdMatch);
+
         if (!pwdMatch) {
+          console.log(errorName.INVALID_DATA);
           throw new Error(errorName.INVALID_DATA);
         }
 
@@ -72,6 +79,8 @@ const resolvers = {
         );
         data.token = token;
         data.id = _id;
+
+        console.log(data);
 
         return data;
       } catch (err) {

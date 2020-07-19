@@ -8,7 +8,7 @@ type ContextType = {
   user?: any;
   login?: (email: string, password: string) => Promise<void>;
   loading?: boolean;
-  logout?: (email: any, password: any) => void;
+  logout?: () => void;
 };
 
 const AuthContext: React.Context<ContextType> = createContext<ContextType>({});
@@ -16,6 +16,7 @@ const AuthContext: React.Context<ContextType> = createContext<ContextType>({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     async function loadUserFromCookies() {
@@ -59,6 +60,9 @@ export const AuthProvider = ({ children }) => {
     password
   ) => {
     try {
+      console.log(email);
+      console.log(password);
+
       const result = await api({
         query: `mutation loginUser($input: UserDataLoginInput) {
           loginUser(input: $input) {
@@ -70,6 +74,8 @@ export const AuthProvider = ({ children }) => {
         }`,
         variables: { input: { email, password } },
       });
+
+      console.log(result);
 
       const {
         data: {
@@ -90,19 +96,19 @@ export const AuthProvider = ({ children }) => {
         // const { data: user } = await api.get('users/me')
         setUser(user);
         console.log('Got user', user);
+        // window.location.pathname = '/';
+        router.push('/');
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  const logout: (email: string, password: string) => void = (
-    email,
-    password
-  ) => {
+  const logout: () => void = () => {
     Cookies.remove('token');
     setUser(null);
-    window.location.pathname = '/login';
+    // window.location.pathname = '/login';
+    router.push('/login');
   };
 
   return (

@@ -12,28 +12,6 @@ import cors from 'cors';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-// Construct a schema, using GraphQL schema language
-/* const schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`); */
-
-// The root provides a resolver function for each API endpoint
-/* const root = {
-  createUser: async ({ input }) => {
-    const { firstName, lastName, email, password } = input;
-    const user = new UserController(firstName, lastName, email, password);
-
-    const data = await user.create();
-
-    return data;
-  },
-  hello: () => {
-    return 'Hello world!';
-  },
-}; */
-
 const app: Express = express();
 const port: number = 4004;
 const gqlEndpoint: string = '/graphqlApi';
