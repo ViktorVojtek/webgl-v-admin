@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { withApollo } from '../graphql/libs/apollo';
-import { ProtectRoute } from '../auth';
+import { /* ProtectRoute, useAuth */ withAuth } from '../auth';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const IndexPage: () => JSX.Element = () => {
   const [value, setValue] = useState(0);
   const classes = useStyles();
+  // useAuth();
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -33,13 +34,13 @@ const IndexPage: () => JSX.Element = () => {
           <Tabs
             centered
             value={value}
-            indicatorColor="primary"
-            textColor="primary"
+            indicatorColor='primary'
+            textColor='primary'
             onChange={handleChange}
-            aria-label="disabled tabs example"
+            aria-label='disabled tabs example'
           >
-            <Tab label="Create project" />
-            <Tab label="List of projects" />
+            <Tab label='Create project' />
+            <Tab label='List of projects' />
           </Tabs>
         </Paper>
         {value === 0 ? <CreateProject /> : null}
@@ -48,4 +49,4 @@ const IndexPage: () => JSX.Element = () => {
   );
 };
 
-export default ProtectRoute(withApollo({ ssr: true })(IndexPage));
+export default withApollo({ ssr: true })(withAuth(IndexPage));

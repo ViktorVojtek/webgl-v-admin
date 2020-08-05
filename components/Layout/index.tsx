@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import useAuth from '../../auth';
+import { logoutUser } from '../../auth';
 
 interface ILayout {
   children?: ReactNode;
@@ -23,17 +23,16 @@ const useStyle = makeStyles((theme: Theme) =>
 );
 
 export default ({ children }: ILayout) => {
-  const { logout } = useAuth();
   const classes = useStyle();
 
   return (
-    <Container fixed maxWidth="sm">
+    <Container fixed maxWidth='sm'>
       <AppBar>
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant='h6' className={classes.title}>
             Menu
           </Typography>
-          <Button onClick={logout} color="inherit">
+          <Button onClick={logoutUser} color='inherit'>
             Logout
           </Button>
         </Toolbar>

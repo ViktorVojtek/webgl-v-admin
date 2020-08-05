@@ -3,15 +3,16 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../lib/mui/theme';
 
-import { AuthProvider } from '../auth';
+// import { AuthProvider } from '../auth';
 
 function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AuthProvider>
+      <Component {...pageProps} />
+      {/* <AuthProvider>
         <Component {...pageProps} />
-      </AuthProvider>
+      </AuthProvider>*/}
     </ThemeProvider>
   );
 }

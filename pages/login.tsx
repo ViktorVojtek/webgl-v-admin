@@ -4,7 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import useAuth from '../auth';
+import { login } from '../auth';
 import Layout from '../components/Layout/auth';
 
 const useStyles = makeStyles((Theme) =>
@@ -26,7 +26,6 @@ const useStyles = makeStyles((Theme) =>
 );
 
 export default () => {
-  const { login } = useAuth();
   const classes = useStyles();
 
   const handleSubmitForm: (
@@ -48,28 +47,28 @@ export default () => {
     <Layout>
       <div className={classes.root}>
         <form onSubmit={handleSubmitForm} className={classes.form}>
-          <Typography component="h3">Please log in</Typography>
+          <Typography component='h3'>Please log in</Typography>
           <div>
-            <FormControl fullWidth margin="normal">
-              <TextField id="email" label="Enter email" variant="outlined" />
+            <FormControl fullWidth margin='normal'>
+              <TextField id='email' label='Enter email' variant='outlined' />
             </FormControl>
           </div>
           <div>
-            <FormControl fullWidth margin="normal">
+            <FormControl fullWidth margin='normal'>
               <TextField
-                id="password"
-                label="Enter password"
-                variant="outlined"
-                type="password"
+                id='password'
+                label='Enter password'
+                variant='outlined'
+                type='password'
               />
             </FormControl>
           </div>
           <div>
             <Button
-              type="submit"
-              size="large"
-              variant="contained"
-              color="primary"
+              type='submit'
+              size='large'
+              variant='contained'
+              color='primary'
               className={classes.loginBtn}
             >
               Send
